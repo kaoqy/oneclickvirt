@@ -4,7 +4,7 @@ FROM node:22-slim AS frontend-builder
 ARG TARGETARCH
 WORKDIR /app/web
 COPY web/package*.json ./
-RUN npm ci --include=optional
+RUN npm ci --include=optional --unsafe-perm=true --allow-root
 RUN if [ "$TARGETARCH" = "amd64" ]; then \
         npm install --no-save @rollup/rollup-linux-x64-gnu; \
     elif [ "$TARGETARCH" = "arm64" ]; then \
